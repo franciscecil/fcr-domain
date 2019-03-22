@@ -1,0 +1,1 @@
+docker service rm fcr-domain_fcr-employee-v0

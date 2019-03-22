@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+  backend:
+    external:
+      name: fcr-ntwk
+    driver: overlay
+    driver_opts:
+      encrypted: ''
+
+services:
+  fcr-employee-v0:
+    image: franciscecil/fcr-employee:one
+    networks:
+      - backend
+    environment:
+      - PORT=8081
+      - SPRING_PROFILES_ACTIVE=dev
+      - constraint:com.middleware=springboot
+    ports:
+      #Spring boot port
+      - '8083:8081'
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 30
+        window: 0s
+      update_config:
+        parallelism: 1
+        delay: 60s
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 1024M
+      placement:
+        constraints:
+          - node.role == manager
+          - node.labels.com.middleware != nginx
+    logging:
+      driver: json-file
