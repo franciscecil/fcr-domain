@@ -1,4 +1,4 @@
-# Docker  cheatcheet 
+# Docker  cheatsheet 
 
 > its good practice to use password-stdin
 
