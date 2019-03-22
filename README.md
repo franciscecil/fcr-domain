@@ -22,6 +22,9 @@ docker rmi $(docker images -q)
 
 docker image prune -a
 
+docker image inspect <IMAGE_ID>
+ 
+docker swarm --help
 
 
 
